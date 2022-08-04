@@ -1,0 +1,195 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int postfixevaluation(char s[] , int n){
+    stack<int>st;
+
+    for(int i=0;i<n;i++){
+        if(s[i]>='0' && s[i]<='100000'){
+            st.push(s[i]-'0');
+        }
+        else{
+            int op2=st.top();
+            st.pop();
+            int op1=st.top();
+            st.pop();
+            switch (s[i])
+            {
+            case '+':
+               st.push(op1+op2);
+                break;
+             case '-':
+               st.push(op1-op2);
+                break;
+             case '*':
+               st.push(op1*op2);
+                break;
+
+             case '/':
+               st.push(op1/op2);
+                break;
+            
+             case '^':
+               st.push(pow(op1,op2));
+                break;
+            
+            
+            }
+        }
+
+    
+    }
+    long long int ans=st.top();
+    return ans;
+    
+}
+
+
+int main(){
+
+int n;
+cin>>n;
+
+
+char arr[n];
+
+for(int i=0;i<n;i++){
+    cin>>arr[i];
+}
+
+
+cout<<postfixevaluation(arr,n);
+
+return 0;
+}
+
+
+// C++ program to evaluate value of a postfix
+// expression having multiple digit operands
+
+
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// // Stack type
+// class Stack
+// {
+// 	public:
+// 	int top;
+// 	unsigned capacity;
+// 	int* array;
+// };
+
+// // Stack Operations
+// Stack* createStack( unsigned capacity )
+// {
+// 	Stack* stack = new Stack();
+
+// 	if (!stack) return NULL;
+
+// 	stack->top = -1;
+// 	stack->capacity = capacity;
+// 	stack->array = new int[(stack->capacity * sizeof(int))];
+
+// 	if (!stack->array) return NULL;
+
+// 	return stack;
+// }
+
+// int isEmpty(Stack* stack)
+// {
+// 	return stack->top == -1 ;
+// }
+
+// int peek(Stack* stack)
+// {
+// 	return stack->array[stack->top];
+// }
+
+// int pop(Stack* stack)
+// {
+// 	if (!isEmpty(stack))
+// 		return stack->array[stack->top--] ;
+// 	return '$';
+// }
+
+// void push(Stack* stack,int op)
+// {
+// 	stack->array[++stack->top] = op;
+// }
+
+
+// // The main function that returns value
+// // of a given postfix expression
+// int evaluatePostfix(char* exp)
+// {
+// 	// Create a stack of capacity equal to expression size
+// 	Stack* stack = createStack(strlen(exp));
+// 	int i;
+
+// 	// See if stack was created successfully
+// 	if (!stack) return -1;
+
+// 	// Scan all characters one by one
+// 	for (i = 0; exp[i]; ++i)
+// 	{
+// 		//if the character is blank space then continue
+// 		if(exp[i] == ' ')continue;
+		
+// 		// If the scanned character is an
+// 		// operand (number here),extract the full number
+// 		// Push it to the stack.
+// 		else if (isdigit(exp[i]))
+// 		{
+// 			int num=0;
+			
+// 			//extract full number
+// 			while(isdigit(exp[i]))
+// 			{
+// 			num = num * 10 + (int)(exp[i] - '0');
+// 				i++;
+// 			}
+// 			i--;
+			
+// 			//push the element in the stack
+// 			push(stack,num);
+// 		}
+		
+// 		// If the scanned character is an operator, pop two
+// 		// elements from stack apply the operator
+// 		else
+// 		{
+// 			int val1 = pop(stack);
+// 			int val2 = pop(stack);
+			
+// 			switch (exp[i])
+// 			{
+// 			case '+': push(stack, val2 + val1); break;
+// 			case '-': push(stack, val2 - val1); break;
+// 			case '*': push(stack, val2 * val1); break;
+// 			case '/': push(stack, val2/val1); break;
+			
+// 			}
+// 		}
+// 	}
+// 	return pop(stack);
+// }
+
+// // Driver code
+// int main()
+// {
+//     // int n;
+//     // cin>>n;
+//     // char exp[n];
+//     // for(int i=0;i<n;i++){
+//     //     cin>>exp[i];
+//     // }
+
+//     char exp[]="64 2 2 * 4 / - 2 +";
+	
+// 	cout << evaluatePostfix(exp);
+// 	return 0;
+// }
+
+
